@@ -40,7 +40,6 @@ export const getChildById = async (req, res) => {
     }
 }
 
-
 //add a new child to a parent
 export const addChild = async (req, res) => {
     try{
@@ -57,6 +56,51 @@ export const addChild = async (req, res) => {
         await parent.save();
         res.status(201).json({ message: "Child added successfully", child: parent.children[parent.children.length - 1] });
 
+    }catch(error){
+        res.status(500).json({ message: error.message });
+    }
+}
+
+//update a child by ID
+export const updateChildById = async (req, res) => {
+    try{
+        const {parentId, childId} = req.params;
+        const childUpdateData = req.body;
+
+        const parent = await Parent.findById(parentId);
+        if(!parent){
+            return res.status(404).json({message: "No parent found"});
+        }
+
+        const child = parent.children.id(childId);
+        if(!child){
+            return res.status(404).json({message: "No child found"});
+        }
+        
+        Object.assign(child, childUpdateData);
+        await parent.save();
+        res.status(200).json({ message: "Child updated successfully", child });
+
+    }catch(error){
+        res.status(500).json({ message: error.message });
+    }
+}
+
+//delete child by child ID
+export const deleteChildById = async (req, res) => {
+    try{
+        const {parentId, childId} = req.params;
+        const parent = await Parent.findById(parentId);
+        if(!parent){
+            return res.status(404).json({message: "No parent found"});
+        }
+        const child = parent.children.id(childId);
+        if(!child){
+            return res.status(404).json({message: "No child found"});
+        }
+        await child.deleteOne();
+        await parent.save();
+        res.status(200).json({ message: "Child deleted successfully" });
     }catch(error){
         res.status(500).json({ message: error.message });
     }
