@@ -25,13 +25,13 @@ export const parentLogin = async (req, res) => {
         const {email, password} = req.body;
         const existingParent = await Parent.findOne({ email }).select('+password');
         if (!existingParent) {
-        return res.status(404).json({ message: "No parent found!" });
+            return res.status(404).json({ message: "No parent found!" });
         }
        
         const correctPassword = await bcrypt.compare(password, existingParent.password);
         console.log(existingParent.password);
         if (!correctPassword) {
-        return res.status(401).json({ message: "Invalid Password!" });
+            return res.status(401).json({ message: "Invalid Password!" });
         }
 
         const token = jwt.sign({id: existingParent._id}, ENV.JWT_SECRET, { expiresIn: "1h"});
