@@ -51,3 +51,17 @@ export const parentDelete = async (req, res) => {
         res.status(500).json({message: error.message});
     }
 }
+
+//get parent information
+export const getParentInfo = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const parent = await Parent.findById(id);
+        if (!parent) {
+            return res.status(404).json({ message: "No Parent Found!" });
+        }
+        res.status(200).json(parent);
+    }catch(error){
+        res.status(500).json({message: error.message});
+    }
+}
