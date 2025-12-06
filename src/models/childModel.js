@@ -26,7 +26,8 @@ export const childSchema = new mongoose.Schema({
     },
     game:{
         type: game,
-        required: false
+        required: true,
+        default: () => ({})
     }
 
 });
