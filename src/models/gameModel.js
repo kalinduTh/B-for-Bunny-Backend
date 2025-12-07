@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
-export const gameSchema = new mongoose.Schema({
-    currentLevel: {
+export const game = new mongoose.Schema({
+    gameLevel: {
         type: Number, 
-        default: 1 
+        default: 0 
     },
     score: {
         type: Number, 
@@ -11,18 +11,14 @@ export const gameSchema = new mongoose.Schema({
     },
     isActive: {
         type: Boolean, 
-        default: true 
+        default: false 
     },
     startedAt: {
         type: Date, 
-        default: Date.now 
+        default: ""
     },
     lastUpdated: {
         type: Date, 
-        default: Date.now 
-    },
-    progressData: {
-        type: Object, 
-        default: {} 
+        default: ""
     },
 })

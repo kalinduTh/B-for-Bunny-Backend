@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { gameSchema } from "./gameModel.js";
+import { game } from "./gameModel.js";
 
 export const childSchema = new mongoose.Schema({
     name: {
@@ -25,7 +25,9 @@ export const childSchema = new mongoose.Schema({
         default: 0
     },
     game:{
-        gameSchema
+        type: game,
+        required: true,
+        default: () => ({})
     }
 
 });

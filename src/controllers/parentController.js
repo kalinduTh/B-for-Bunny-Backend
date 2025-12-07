@@ -25,13 +25,13 @@ export const parentLogin = async (req, res) => {
         const {email, password} = req.body;
         const existingParent = await Parent.findOne({ email }).select('+password');
         if (!existingParent) {
-        return res.status(404).json({ message: "No parent found!" });
+            return res.status(404).json({ message: "No parent found!" });
         }
        
         const correctPassword = await bcrypt.compare(password, existingParent.password);
         console.log(existingParent.password);
         if (!correctPassword) {
-        return res.status(401).json({ message: "Invalid Password!" });
+            return res.status(401).json({ message: "Invalid Password!" });
         }
 
         const token = jwt.sign({id: existingParent._id}, ENV.JWT_SECRET, { expiresIn: "1h"});
@@ -47,6 +47,20 @@ export const parentDelete = async (req, res) => {
         const {id} = req.params;
         await Parent.findByIdAndDelete(id);
         res.status(204).json("Parent Deleted Successfully!");
+    }catch(error){
+        res.status(500).json({message: error.message});
+    }
+}
+
+//get parent information
+export const getParentInfo = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const parent = await Parent.findById(id);
+        if (!parent) {
+            return res.status(404).json({ message: "No Parent Found!" });
+        }
+        res.status(200).json(parent);
     }catch(error){
         res.status(500).json({message: error.message});
     }
