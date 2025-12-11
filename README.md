@@ -147,7 +147,7 @@ backend/
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `PORT` | Server port number | 4001 |
+| `PORT` | Server port number | 4000 |
 | `DATABASE_URL` | MongoDB connection string | - |
 | `NODE_ENV` | Node environment (development/production) | development |
 | `JWT_SECRET` | Secret key for JWT token generation | - |
