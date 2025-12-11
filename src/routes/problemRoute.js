@@ -1,11 +1,11 @@
 import express from "express"
-import { addProblemToProblemSet, deleteProblemById, getAllProblemsInProblemSet } from "../controllers/problemController.js";
+import { addProblem, deleteProblem, getProblemSet } from "../controllers/problemController.js";
 
 
 const router = express.Router();    
 
-router.get("/:letter", getAllProblemsInProblemSet);
-router.post("/add", addProblemToProblemSet);
-router.delete("/delete", deleteProblemById);
+router.get("/problemset", getProblemSet);
+router.post("/add", addProblem);
+router.post("/delete", deleteProblem);
 
 export default router;
