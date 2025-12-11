@@ -1,15 +1,21 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "B for Bunny - Educational game backend API for children's learning",
   "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
     "start": "node src/server.js"
   },
-  "keywords": [],
+  "keywords": [
+    "educational",
+    "game",
+    "api",
+    "children",
+    "learning"
+  ],
   "type": "module",
-  "author": "",
+  "author": "Kalindu Tharanga (Student #2433317)",
   "license": "ISC",
   "dependencies": {
     "axios": "^1.13.2",
