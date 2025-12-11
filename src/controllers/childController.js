@@ -8,6 +8,7 @@
  */
 
 import Parent from "../models/parentModel.js";
+import { generateAvatarByGender } from "../services/diceBearAPI.js";
 
 /**
  * Retrieve all children for a specific parent
@@ -86,16 +87,8 @@ export const addChild = async (req, res) => {
     try {
         const { parentId } = req.params;
         const { name, gender, DOB } = req.body;
+        const image = generateAvatarByGender(gender);// Generate gender-specific avatar using DiceBear API service
 
-        // Generate random seed for unique avatar
-        const getRandomSeed = () => Math.random().toString(36).substring(2, 10);
-
-        // Generate gender-specific avatar URL using DiceBear API
-        const MaleAvatar = `https://api.dicebear.com/9.x/adventurer/svg?seed=${getRandomSeed()}&backgroundRotation=360&eyes=variant26,variant21,variant10,variant01&features=blush,birthmark,freckles&featuresProbability=0&glasses[]&glassesProbability=0&hair=short14,short11,short10,short07&hairColor=e5d7a3,transparent,0e0e0e&mouth=variant24,variant25,variant26,variant27,variant28,variant29,variant30&skinColor=ecad80,f2d3b1&backgroundColor=b6e3f4,ffdfbf`;
-        const FemaleAvatar = `https://api.dicebear.com/9.x/adventurer/svg?seed=${getRandomSeed()}&backgroundRotation=360&eyes=variant26,variant21,variant10,variant01&features=blush,birthmark,freckles&featuresProbability=0&glasses[]&glassesProbability=0&hair=long03,long18,long08&hairColor=e5d7a3,transparent,0e0e0e&mouth=variant24,variant25,variant26,variant27,variant28,variant29,variant30&skinColor=ecad80,f2d3b1&backgroundColor=c0aede,ffd5dc,d1d4f9`;
-
-        const image = gender === 'Male' ? MaleAvatar: FemaleAvatar;
-        
         const parent = await Parent.findById(parentId);
 
         if (!parent) {
